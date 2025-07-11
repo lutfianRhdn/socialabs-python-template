@@ -1,3 +1,4 @@
+
 import sys
 import os
 import time
@@ -9,6 +10,10 @@ from multiprocessing.connection import Connection
 from utils.log import log
 from utils.handleMessage import sendMessage,convertMessage
 
+
+#########
+# dont edit this class except worker conf
+#########
 class Supervisor:
     _workers:dict={}
     workers_health:dict ={}
@@ -16,14 +21,28 @@ class Supervisor:
     
     def __init__(self):
 
-        # Initialize default workers
+        ####
+        # just edit this part to add your workers
+        ####
+        
         self.create_worker("DatabaseInteractionWorker", count=1, config={
           'connection_string': 'mongodb://localhost:27017/',
           'database': 'mydatabase'
         })
+        
         self.create_worker("RestApiWorker", count=1, config={
           'port':8000
         })
+        
+        self.create_worker("TemplateWorker", count=1, config={
+          # Add any configuration needed for your worker here
+          'example_config': 'value'
+        })
+        
+        ####
+        # until this part
+        ####
+        
 
         # Start periodic health check thread
         self._health_thread = threading.Thread(target=self._health_loop, daemon=True)
