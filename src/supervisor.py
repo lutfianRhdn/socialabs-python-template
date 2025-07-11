@@ -68,7 +68,7 @@ class Supervisor:
             self._workers[p.pid] = {"process": p, "conn": parent_conn, "name": worker}
             self._start_listener(p.pid)
             
-        running = list(self._workers.keys())
+        running = list([pid for pid, info in self._workers.items() if info['process'].is_alive() and info['name'] == worker])
         log(f"{worker} running on pid(s): {running}", "success")
         self.resend_pending_messages(worker)
     @staticmethod

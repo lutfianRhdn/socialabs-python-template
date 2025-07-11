@@ -122,6 +122,26 @@ class RestApiWorker(FlaskView):
       else:
           return jsonify({"error": "Unknown error"}), 500
 
+    @route('/test', methods=['POST'])
+    def getData(self):
+      
+      projectId = request.json.get('projectId')
+      prompt = request.json.get('prompt')
+      
+      response = self.sendToOtherWorker(
+          destination=[f"TemplateWorker/test/"],
+          data={
+              "projectId": projectId,
+              "prompt": prompt
+          }
+      )
+      
+      if response["status"] == "timeout":
+          return jsonify({"error": "Request timed out"}), 504
+      elif response["status"] == "completed":
+          return jsonify(response["result"]), 200
+      else:
+          return jsonify({"error": "Unknown error"}), 500
 
 def main(conn: Connection, config: dict):
     worker = RestApiWorker()
