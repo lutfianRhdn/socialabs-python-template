@@ -55,7 +55,7 @@ trio==0.28.0
 trio-websocket==0.11.1
 typing_extensions==4.12.2
 uritemplate==4.1.1
-urllib3==1.26.20
+urllib3==2.5.0
 urllib3-secure-extra==0.1.0
 webdriver-manager==4.0.2
 Werkzeug==3.1.3
