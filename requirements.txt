@@ -43,7 +43,7 @@ PySocks==1.7.1
 python-dotenv==1.0.1
 python-utils==3.9.1
 regex==2024.11.6
-requests==2.32.3
+requests==2.32.4
 rsa==4.9
 selenium==4.0.0
 selenium-wire==5.1.0
